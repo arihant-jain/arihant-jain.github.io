@@ -19,6 +19,23 @@
 
                         // Attempts to connect to remote GATT Server.
                         return device.gatt.connect(); })
+                        .then(server => {
+                        // Getting Battery Service...
+                        return server.getPrimaryService('battery_service');
+                        })
+                        .then(service => {
+                        // Getting Battery Level Characteristic...
+                        return service.getCharacteristic('battery_level');
+                        })
+                        .then(characteristic => {
+                        // Reading Battery Level...
+                        return characteristic.readValue();
+                        })
+                        .then(value => {
+                        console.log('Battery percentage is ' + value.getUint8(0));
+                        var batteryLevel = document.getElementById('battery_level');
+                        batteryLevel.innerHTML += value.getUint8(0);
+                        })
                     .catch(error => { console.log(error); });
                 });
             }
@@ -30,5 +47,6 @@
         <br>
         <br>
         <h4 id="device_name">Connected device: </h4>
+        <h4 id="battery_level">Battery level: </h4>
     </body>
 </html>
