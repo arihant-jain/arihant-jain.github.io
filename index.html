@@ -14,7 +14,7 @@
                         // Human-readable name of the device.
                         console.log(device.name);
                         var connectedDevice = document.getElementById('device_name');
-                        connectedDevice.innerHTML += device.name;
+                        connectedDevice.innerHTML = 'Connected device: ' + device.name;
                         
 
                         // Attempts to connect to remote GATT Server.
@@ -34,7 +34,7 @@
                         .then(value => {
                         console.log('Battery percentage is ' + value.getUint8(0));
                         var batteryLevel = document.getElementById('battery_level');
-                        batteryLevel.innerHTML += value.getUint8(0);
+                        batteryLevel.innerHTML = 'Battery level: ' + value.getUint8(0);
                         })
                     .catch(error => { console.log(error); });
                 });
