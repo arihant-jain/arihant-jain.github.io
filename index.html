@@ -10,7 +10,15 @@
                 var button = document.getElementById('search');
                 button.addEventListener('pointerup', function(event){
                     navigator.bluetooth.requestDevice({ filters: [{ services: ['battery_service'] }] })
-                    .then(device => { /* ... */ })
+                    .then(device => { 
+                        // Human-readable name of the device.
+                        console.log(device.name);
+                        var connectedDevice = document.getElementById('device_name');
+                        connectedDevice.innerHTML += device.name;
+                        
+
+                        // Attempts to connect to remote GATT Server.
+                        return device.gatt.connect(); })
                     .catch(error => { console.log(error); });
                 });
             }
@@ -19,5 +27,8 @@
     <body onload="pageLoad()">
         <h1>Physical Web</h1>
         <button id="search">Search</button>
+        <br>
+        <br>
+        <h4 id="device_name">Connected device: </h4>
     </body>
 </html>
