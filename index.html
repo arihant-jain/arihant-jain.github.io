@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+    <head>
+        <script type="text/javascript">
+            /* function search() {
+                alert('hi');
+            } */
+            alert('hi');
+            function pageLoad(){
+                var button = document.getElementById('search');
+                button.addEventListener('pointerup', function(event){
+                    navigator.bluetooth.requestDevice({ filters: [{ services: ['battery_service'] }] })
+                    .then(device => { /* ... */ })
+                    .catch(error => { console.log(error); });
+                });
+            }
+        </script>
+    </head>
+    <body onload="pageLoad()">
+        <h1>Physical Web</h1>
+        <button id="search">Search</button>
+    </body>
+</html>
